@@ -40,4 +40,5 @@ class Kalkulatorcontroller extends GetxController{
         snackPosition: SnackPosition.BOTTOM
     );
   }
+
 }

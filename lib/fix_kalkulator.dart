@@ -80,7 +80,12 @@ class KalkulatorFix extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 )
             ),
-          )
+          ),
+          CustomButton(text: "Reset", bg: Colors.red, width: 250 , height: 50, clrText: Colors.white, radius: 15, onPressed: (){
+            txtangka1.text = "";
+            txtangka2.text = "";
+            controller.hasilHitung.value = 0.0;
+          })
         ],
       ),
     );
