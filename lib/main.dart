@@ -1,4 +1,5 @@
 import 'package:application_project/fix_kalkulator.dart';
+import 'package:application_project/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:application_project/login_page.dart';
 import 'package:application_project/kalkulator_page.dart';
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: KalkulatorFix(),
+      title: "Belajar Flutter",
+      initialRoute: Routes.registration,
+      getPages: Routes.pages,
     );
   }
 }
