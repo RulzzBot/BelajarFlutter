@@ -1,5 +1,6 @@
 
 import 'package:application_project/controller/list_product_controller.dart';
+import 'package:application_project/controller/detail_product_controller.dart';
 import 'package:application_project/models/product_models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class DetailProductPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final produk = Get.arguments;
+    final controller = Get.put(DetailProductController());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Produk"),
@@ -30,7 +31,7 @@ class DetailProductPages extends StatelessWidget {
               width: double.infinity,
               height: 220,
               child: Image.asset(
-                produk["image"],
+                controller.image,
                 fit: BoxFit.contain,
               ),
             ),
@@ -39,7 +40,7 @@ class DetailProductPages extends StatelessWidget {
 
             // Nama produk
             Text(
-              produk["namaProduk"],
+              controller.namaProduk,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -58,14 +59,14 @@ class DetailProductPages extends StatelessWidget {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  produk["rating"],
+                  controller.rating,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  "${produk["reviews"]} Reviews",
+                  "${controller.reviews} Reviews",
                   style: const TextStyle(
                     color: Colors.grey,
                   ),
@@ -77,7 +78,7 @@ class DetailProductPages extends StatelessWidget {
 
             // Harga
             Text(
-              produk["harga"],
+              controller.harga,
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -92,7 +93,7 @@ class DetailProductPages extends StatelessWidget {
                 const Icon(Icons.store),
                 const SizedBox(width: 8),
                 Text(
-                  produk["namaToko"],
+                  controller.namaToko,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -115,7 +116,7 @@ class DetailProductPages extends StatelessWidget {
             const SizedBox(height: 8),
 
             Text(
-              produk["deskripsi"],
+              controller.deskripsi,
               style: const TextStyle(
                 fontSize: 15,
                 color: Colors.grey,
