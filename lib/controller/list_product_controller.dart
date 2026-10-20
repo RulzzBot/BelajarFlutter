@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ListProductController extends GetxController{
 
-  RxList<ProdukModel> listProduk = [
+  final List<ProdukModel> listProduk = [
     ProdukModel(
       namaProduk: "Samsung Galaxy Fold",
       harga: "10 juta",
@@ -53,8 +53,18 @@ class ListProductController extends GetxController{
       rating: "4.7",
       namaToko: "Electronic Store",
     ),
-  ].obs;
+  ];
 
+  final RxList<ProdukModel> produkList = <ProdukModel>[].obs;
 
+  @override
+  void onInit(){
+    super.onInit();
+    produkList.assignAll(listProduk);
+  }
 
+  Future<void> refreshProduk() async {
+    await Future.delayed(const Duration(seconds: 1));
+    produkList.assignAll(listProduk);
+  }
 }

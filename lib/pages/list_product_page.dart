@@ -17,20 +17,19 @@ class ListProductPage extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: Obx(
             () => RefreshIndicator(
+
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
               edgeOffset: 0,
               backgroundColor: Colors.blue,
               color: Colors.white,
               displacement: 30,
-              onRefresh: () async {
-                await Future.delayed(Duration(seconds: 1));
-              },
+              onRefresh: controller.refreshProduk,
                 child: ListView.builder(
 
                 physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: controller.listProduk.length,
+                itemCount: controller.produkList.length,
                 itemBuilder: (context, index){
-                  final produk = controller.listProduk[index];
+                  final produk = controller.produkList[index];
                   return Dismissible(
                     key: ValueKey(produk.namaProduk),
                     direction: DismissDirection.startToEnd,
@@ -45,7 +44,7 @@ class ListProductPage extends StatelessWidget {
                     ),
 
                     onDismissed: (direction) {
-                      controller.listProduk.removeAt(index);
+                      controller.produkList.removeAt(index);
                       Get.snackbar(
                           "Produk Dihapus",
                           "Produk berhasil dihapus"
@@ -68,6 +67,44 @@ class ListProductPage extends StatelessWidget {
                               'namaToko' : produk.namaToko.toString()
                             });
                       },
+                      onLongPress: () async {
+                        final pilihan = await showMenu(
+                            context: context,
+                            position: RelativeRect.fromLTRB(200, 200, 0, 0),
+                            items:const[
+                              PopupMenuItem(
+                                  value: 'detail',
+                                  child: Text('Detail Produk')
+                              ),
+                              PopupMenuItem(
+                                  value: 'delete',
+                                  child: Text('Delete Produk'))
+                            ] );
+
+                        switch(pilihan){
+                          case 'detail':
+                            Get.toNamed(
+                              Routes.detailProduct,
+                              arguments: {
+                                'namaProduk' : produk.namaProduk.toString(),
+                                'harga' : produk.harga.toString(),
+                                'deskripsi' : produk.deskripsi.toString(),
+                                'image' : produk.image.toString(),
+                                'reviews' : produk.reviews.toString(),
+                                'rating': produk.rating.toString(),
+                                'namaToko' : produk.namaToko.toString()
+                              }
+                            );
+                            break;
+                          case 'delete':
+                            controller.produkList.removeAt(index);
+                            Get.snackbar(
+                                "Produk Dihapus",
+                                "Produk berhasil dihapus"
+                            );
+                            break;
+                        }
+                      },
                       child: ListTile(
                         leading: SizedBox(
                           width: 45,
@@ -79,7 +116,7 @@ class ListProductPage extends StatelessWidget {
                         ),
                         title: Text(produk.namaProduk),
                         subtitle: Text(produk.harga),
-                        trailing: const Icon(Icons.arrow_forward),
+                        trailing: const Icon(Icons.arrow_forward_ios),
                       ),
                     ),
                   ),
