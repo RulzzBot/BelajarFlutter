@@ -134,7 +134,6 @@ class DetailProductPages extends StatelessWidget {
                 onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-
                     shape: RoundedRectangleBorder(
                       borderRadius:BorderRadius.circular(12),
                     )

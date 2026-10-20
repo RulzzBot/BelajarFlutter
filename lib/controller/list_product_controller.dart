@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ListProductController extends GetxController{
 
-  List<ProdukModel> listProduk = [
+  RxList<ProdukModel> listProduk = [
     ProdukModel(
       namaProduk: "Samsung Galaxy Fold",
       harga: "10 juta",
@@ -53,7 +53,7 @@ class ListProductController extends GetxController{
       rating: "4.7",
       namaToko: "Electronic Store",
     ),
-  ];
+  ].obs;
 
 
 

@@ -22,5 +22,6 @@ class DetailProductController extends GetxController{
     image = arguments['image'];
     reviews = arguments['reviews'];
     rating = arguments['rating'];
+    namaToko = arguments['namaToko'];
   }
 }
