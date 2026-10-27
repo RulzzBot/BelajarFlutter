@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
               color: Colors.white,
               displacement: 30,
               onRefresh: controller.refreshProduk,
+              // Vertikal List
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
@@ -46,6 +47,52 @@ class Home extends StatelessWidget {
                             final produk = controller.produkList[index];
                             return SizedBox(
                                 width: 200,
+                                child: GestureDetector(
+                                  onLongPressStart: (details) async {
+                                    final posisi = details.globalPosition;
+                                    final size = MediaQuery.of(context).size;
+                                    final pilihan = await showMenu(
+                                        context: context,
+                                        position: RelativeRect.fromLTRB(
+                                          posisi.dx,
+                                          posisi.dy,
+                                          size.width - posisi.dx,
+                                          size.height - posisi.dy,
+                                        ),
+                                        items:const[
+                                          PopupMenuItem(
+                                              value: 'detail',
+                                              child: Text('Detail Produk')
+                                          ),
+                                          PopupMenuItem(
+                                              value: 'delete',
+                                              child: Text('Delete Produk'))
+                                        ] );
+                                    switch(pilihan){
+                                      case 'detail':
+                                        Get.toNamed(
+                                            Routes.detailProduct,
+                                            arguments: {
+                                              'namaProduk' : produk.namaProduk.toString(),
+                                              'harga' : produk.harga.toString(),
+                                              'deskripsi' : produk.deskripsi.toString(),
+                                              'image' : produk.image.toString(),
+                                              'reviews' : produk.reviews.toString(),
+                                              'rating': produk.rating.toString(),
+                                              'namaToko' : produk.namaToko.toString()
+                                            }
+                                        );
+                                        break;
+                                      case 'delete':
+                                        controller.produkList.removeAt(index);
+                                        Get.snackbar(
+                                            "Produk Dihapus",
+                                            "Produk berhasil dihapus"
+                                        );
+                                        break;
+                                    }
+
+                                  },
                                 child: Card(
                                   elevation: 3,
                                   margin: EdgeInsets.all(8),
@@ -103,6 +150,7 @@ class Home extends StatelessWidget {
                                     ),
                                   ),
                                 )
+                                )
                             );
                           }
                       )
@@ -117,49 +165,116 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Horizontal List
                   ListView.builder(
                     shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: controller.produkList.length,
                       itemBuilder: (context, index){
                         final produk = controller.produkList[index];
-                        return Card(
-                          elevation: 3,
-                          margin: EdgeInsets.all(8),
-                          child: InkWell(
-                            onTap: (){
-                              Get.toNamed(
-                                  Routes.detailProduct,
-                                  arguments: {
-                                    'namaProduk' : produk.namaProduk.toString(),
-                                    'harga' : produk.harga.toString(),
-                                    'deskripsi' : produk.deskripsi.toString(),
-                                    'image' : produk.image.toString(),
-                                    'reviews' : produk.reviews.toString(),
-                                    'rating': produk.rating.toString(),
-                                    'namaToko' : produk.namaToko.toString()
-                                  }
+                        return Dismissible(
+                            key: ValueKey(produk.namaProduk),
+                            direction: DismissDirection.startToEnd,
+                            background: Container(
+                              color: Colors.red,
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.only(left: 10),
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onDismissed: (direction){
+                              controller.produkList.removeAt(index);
+                              Get.snackbar(
+                                  "Produk Dihapus",
+                                  "Produk berhasil dihapus"
                               );
                             },
-                              child: ListTile(
-                                leading: SizedBox(
-                                  width: 45,
-                                  height: 45,
-                                  child: Image.asset(
-                                    produk.image,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                title: Text(produk.namaProduk),
-                                subtitle: Text(produk.harga),
-                                trailing: const Icon(Icons.arrow_forward_ios),
-                              )
-                          ),
+                            child: Card(
+                              elevation: 3,
+                              margin: EdgeInsets.all(8),
+                              child: InkWell(
+                                  onTap: (){
+                                    Get.toNamed(
+                                        Routes.detailProduct,
+                                        arguments: {
+                                          'namaProduk' : produk.namaProduk.toString(),
+                                          'harga' : produk.harga.toString(),
+                                          'deskripsi' : produk.deskripsi.toString(),
+                                          'image' : produk.image.toString(),
+                                          'reviews' : produk.reviews.toString(),
+                                          'rating': produk.rating.toString(),
+                                          'namaToko' : produk.namaToko.toString()
+                                        }
+                                    );
+                                  },
+                                  child: GestureDetector(
+                                      onLongPressStart: (details) async{
+                                        final posisi = details.globalPosition;
+                                        final size = MediaQuery.of(context).size;
+                                        final pilihan = await showMenu(
+                                            context: context,
+                                            position: RelativeRect.fromLTRB(
+                                              posisi.dx,
+                                              posisi.dy,
+                                              size.width - posisi.dx,
+                                              size.height - posisi.dy,
+                                            ),
+                                            items:const[
+                                              PopupMenuItem(
+                                                  value: 'detail',
+                                                  child: Text('Detail Produk')
+                                              ),
+                                              PopupMenuItem(
+                                                  value: 'delete',
+                                                  child: Text('Delete Produk'))
+                                            ] );
+                                        switch(pilihan){
+                                          case 'detail':
+                                            Get.toNamed(
+                                                Routes.detailProduct,
+                                                arguments: {
+                                                  'namaProduk' : produk.namaProduk.toString(),
+                                                  'harga' : produk.harga.toString(),
+                                                  'deskripsi' : produk.deskripsi.toString(),
+                                                  'image' : produk.image.toString(),
+                                                  'reviews' : produk.reviews.toString(),
+                                                  'rating': produk.rating.toString(),
+                                                  'namaToko' : produk.namaToko.toString()
+                                                }
+                                            );
+                                            break;
+                                          case 'delete':
+                                            controller.produkList.removeAt(index);
+                                            Get.snackbar(
+                                                "Produk Dihapus",
+                                                "Produk berhasil dihapus"
+                                            );
+                                            break;
+                                        }
+                                      },
+                                      child: ListTile(
+                                        leading: SizedBox(
+                                          width: 45,
+                                          height: 45,
+                                          child: Image.asset(
+                                            produk.image,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                        title: Text(produk.namaProduk),
+                                        subtitle: Text(produk.harga),
+                                        trailing: const Icon(Icons.arrow_forward_ios),
+                                      )
+                                  )
+                              ),
+                            ),
                         );
                       }
                     )
                   ],
-                )
+                ),
               )
           )
     );
