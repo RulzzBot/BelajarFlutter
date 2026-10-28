@@ -6,6 +6,7 @@ import 'package:application_project/pages/detail_product_pages.dart';
 import 'package:application_project/pages/list_product_page.dart';
 import 'package:application_project/pages/main_menu_page.dart';
 import 'package:application_project/pages/registration_pages.dart';
+import 'package:application_project/pages/menu_drawer_page.dart';
 
 class Routes {
   static const String registration = '/registration';
@@ -13,6 +14,8 @@ class Routes {
   static const String productPage = '/productPage';
   static const String detailProduct = '/detailProduct';
   static const String mainMenu = '/mainMenu';
+  static const String menuDrawer = '/menuDrawer';
+
 
   static final pages = [
     GetPage(
@@ -34,6 +37,10 @@ class Routes {
     GetPage(
       name: mainMenu,
       page: () => MainMenuPage(),
+    ),
+    GetPage(
+      name: menuDrawer,
+      page: () => MenuDrawerPage(),
     ),
   ];
 }

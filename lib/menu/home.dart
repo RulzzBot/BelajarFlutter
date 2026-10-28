@@ -3,6 +3,7 @@ import 'package:application_project/pages/detail_product_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:application_project/pages/menu_drawer_page.dart';
 
 import '../routes.dart';
 class Home extends StatelessWidget {
@@ -15,6 +16,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Home"),
       ),
+      drawer: MenuDrawerPage(),
       body: Obx(
           ()=> RefreshIndicator(
               triggerMode: RefreshIndicatorTriggerMode.anywhere,
