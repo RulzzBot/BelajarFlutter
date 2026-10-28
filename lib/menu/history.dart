@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/menu_drawer_page.dart';
+
 class History extends StatelessWidget {
   const History({super.key});
 
@@ -9,6 +11,7 @@ class History extends StatelessWidget {
       appBar: AppBar(
         title: const Text("History"),
       ),
+      drawer: MenuDrawerPage(),
     );
   }
 }

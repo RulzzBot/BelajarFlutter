@@ -12,24 +12,25 @@ class MainMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
+      drawer: MenuDrawerPage(),
       body: IndexedStack(
         index: controller.selectedIndex.value,
         children: controller.listPages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: controller.selectedIndex.value,
-        onTap: controller.changePage,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                label: "History"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: "Profile"),
-      ]),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: controller.selectedIndex.value,
+      //   onTap: controller.changePage,
+      //     items: [
+      //       BottomNavigationBarItem(
+      //           icon: Icon(Icons.home),
+      //           label: "Home"),
+      //       BottomNavigationBarItem(
+      //           icon: Icon(Icons.history),
+      //           label: "History"),
+      //       BottomNavigationBarItem(
+      //           icon: Icon(Icons.person),
+      //           label: "Profile"),
+      // ]),
     ));
   }
 }
