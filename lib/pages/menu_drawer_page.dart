@@ -29,7 +29,7 @@ class MenuDrawerPage extends StatelessWidget {
               ),
             ),
             accountEmail: const Text(
-              'nazrulwijaya0@gmail.com',
+              '@yutazzbot',
             ),
           ),
 
