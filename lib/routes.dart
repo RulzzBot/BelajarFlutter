@@ -7,6 +7,7 @@ import 'package:application_project/pages/list_product_page.dart';
 import 'package:application_project/pages/main_menu_page.dart';
 import 'package:application_project/pages/registration_pages.dart';
 import 'package:application_project/pages/menu_drawer_page.dart';
+import 'package:application_project/pages/login_clone_fix.dart';
 
 class Routes {
   static const String registration = '/registration';
@@ -15,6 +16,7 @@ class Routes {
   static const String detailProduct = '/detailProduct';
   static const String mainMenu = '/mainMenu';
   static const String menuDrawer = '/menuDrawer';
+  static const String loginCloneFix = '/loginCloneFix';
 
 
   static final pages = [
@@ -42,5 +44,6 @@ class Routes {
       name: menuDrawer,
       page: () => MenuDrawerPage(),
     ),
+    GetPage(name: loginCloneFix, page:() => LoginCloneFix())
   ];
 }

@@ -3,15 +3,17 @@ import 'package:application_project/component/custom_check.dart';
 import 'package:application_project/component/custom_img.dart';
 import 'package:application_project/component/custom_text.dart';
 import 'package:application_project/component/custom_txtField.dart';
+import 'package:application_project/controller/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginCloneFix extends StatelessWidget {
   LoginCloneFix({super.key});
-
-  final TextEditingController userController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
-  final TextEditingController confirmController = TextEditingController();
+  final controller = Get.put(LoginController());
+  // final TextEditingController userController = TextEditingController();
+  // final TextEditingController passController = TextEditingController();
+  // final TextEditingController confirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +39,19 @@ class LoginCloneFix extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(0, 30, 0, 10),
               child: SizedBox(
                   width: 300,
-                  child: MyTextField(hint: "Email Addres or Username", txtController: userController, radius: 50, obscure: false,  keyboardType: TextInputType.text, inputFormatters: [],))
+                  child: MyTextField(hint: "Email Addres or Username", txtController: controller.txtUsername, radius: 50, obscure: false,  keyboardType: TextInputType.text, inputFormatters: [],))
           ),
           Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: SizedBox(
                   width: 300,
-                  child: MyTextField(hint: "Password", txtController: passController, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
+                  child: MyTextField(hint: "Password", txtController: controller.txtPassword, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
               )),
           Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: SizedBox(
                 width: 300,
-                  child: MyTextField(hint: "Confirm Password", txtController: confirmController, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
+                  child: MyTextField(hint: "Confirm Password", txtController: controller.txtPassword, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
               ),
           ),
         Container(
@@ -57,7 +59,11 @@ class LoginCloneFix extends StatelessWidget {
             child: CustomCheck(value: false, onChanged: (value){}, text: "Remember Me")),
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: CustomButton(text: "Sign Up", bg: Colors.green, width: 300 , height: 50, clrText: Colors.white, radius: 50, onPressed: (){},)),
+              child: CustomButton(text: "Sign Up", bg: Colors.green, width: 300 , height: 50, clrText: Colors.white, radius: 50,
+                onPressed: (){
+                  controller.login();
+                },
+              )),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
