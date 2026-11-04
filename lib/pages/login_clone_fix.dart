@@ -47,13 +47,13 @@ class LoginCloneFix extends StatelessWidget {
                   width: 300,
                   child: MyTextField(hint: "Password", txtController: controller.txtPassword, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
               )),
-          Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: SizedBox(
-                width: 300,
-                  child: MyTextField(hint: "Confirm Password", txtController: controller.txtPassword, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
-              ),
-          ),
+          // Container(
+          //     margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          //     child: SizedBox(
+          //       width: 300,
+          //         child: MyTextField(hint: "Confirm Password", txtController: controller.txtPassword, radius: 50, obscure: true,  keyboardType: TextInputType.text, inputFormatters: [],)
+          //     ),
+          // ),
         Container(
           margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
             child: CustomCheck(value: false, onChanged: (value){}, text: "Remember Me")),

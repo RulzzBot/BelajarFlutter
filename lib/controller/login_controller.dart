@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:application_project/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,7 @@ class LoginController extends GetxController{
             if(data["status"] == true){
               Get.snackbar("Berhasil", data['message']);
               Get.put(MainMenuDrawerController());
-              Get.off(() => MainMenuPage());
+              Get.offNamed(Routes.mainMenu);
             }else{
               Get.snackbar("Error", data['message']);
             }
