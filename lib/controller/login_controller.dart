@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:application_project/models/login_model.dart';
 import 'package:application_project/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:application_project/models/login_model.dart';
 
 // import '../pages/menu_drawer_page.dart';
 import 'package:application_project/pages/menu_drawer_page.dart';
@@ -16,6 +18,7 @@ class LoginController extends GetxController{
   TextEditingController txtPassword = TextEditingController();
 
   var isLoading = false.obs;
+  var loginModel = Rxn<LoginModel>();
 
   void login() async{
     if(txtUsername.text.toString().isEmpty || txtPassword.text.toString().isEmpty){
@@ -32,18 +35,24 @@ class LoginController extends GetxController{
 
           isLoading.value = false;
           if(response.statusCode == 200){
-          //   kita ambil jsonnya messege pindah halaman ke mainmenu
-            final data = jsonDecode(response.body);
-            if(data["status"] == true){
-              Get.snackbar("Berhasil", data['message']);
-              Get.put(MainMenuDrawerController());
-              Get.offNamed(Routes.mainMenu);
+            // kita ambil jsonnya message pindah tampilan ke main menu
+            // contoh json yang paling sederhana, next pertemuan json yang kompleks
+            loginModel.value = loginModelFromJson(response.body);
+
+            if(loginModel.value?.status == true){
+              Get.snackbar("berhasil", loginModel.value!.message.toString());
+              // pindah ke main menu
+              // get.off karena login nya di close
+              // carilah satu free api (sport db) yang return nya adalah json array
+              // di push ke git jam 10.30
             }else{
-              Get.snackbar("Error", data['message']);
+              Get.snackbar("gagal", loginModel.value!.message.toString());
             }
+
           }else{
-            Get.snackbar("Error", "Terjadi Kesalahan");
+            Get.snackbar("gagal", "cek internet connection");
           }
+
         }catch(e){
           Get.snackbar("gagal", e.toString());
         }
